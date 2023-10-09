@@ -198,3 +198,23 @@
        "sunset": 1696890366
   }
 }
+
+// forecast = 
+{
+  "city": raw_data.city.name,
+  "day_one" :{
+      "unix_dt": raw_data.list[0].dt,
+  },
+  "day_two" :{
+
+  },
+  "day_three": {
+
+  },
+  "day_four":{
+
+  },
+  "day_five": {
+
+  }
+}
