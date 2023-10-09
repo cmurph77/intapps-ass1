@@ -7,6 +7,7 @@ const port = 3001;
 
 app.get('/helloworld', (req, res) => {
   res.send('Hello World!');
+  console.log(JSON.stringify(req, null,3));
   console.log("responce sent!")
 });
 
