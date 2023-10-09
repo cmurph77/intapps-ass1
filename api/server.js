@@ -2,7 +2,6 @@
 const { json } = require('body-parser');
 const express = require('express');
 const app = express();
-
 const port = 3001;
 
 const sample_request = {
@@ -62,24 +61,18 @@ app.get('/helloworld', (req, res) => {
   console.log("responce sent!")
 });
 
+app.get('/weather/:input', (req, res) => {
+  const input = req.params.input;
+  console.log("\n Recieved weather forecast request for City: ")
+  console.log(input);
+  sample_data.city = input
+  res.send(sample_data)
+});
 
-app.post('/get-weather-data', (city, res) => {
-  try {
-    const sample_request = req.body;  // Assuming the request body contains the sample_request
-    console.log(city);
-    console.log("POST request revieved. Request Body can be viewed below \n")
-    console.log(json.stringify(req.body, null, 4));
-    // Process the request and generate sample_data object based on sample_request
-    // This is just a placeholder - replace with your processing logic
-    // You might want to use the sample_request data to customize the sample_data
-    // Here, we're just sending back the predefined sample_data
-    const processedSampleData = sample_data;
-
-    // Return the sample_data as the API response
-    res.json(processedSampleData);
-  } catch (error) {
-    res.status(500).json({ error: 'Sorry, An error occurred' });
-  }
+app.get('/test/echo/:input', (req, res) => {
+  const input = req.params.input;
+  sample_data.city = input
+  res.send(sample_data)
 });
 
 
