@@ -4,16 +4,12 @@
 // 3 -- type of clothes - cold[<13], mild [13 - 23], hot[>23]
 
 const apiKey = '9d54b4134840423050e9a3f21b40dc15'; // Replace with your OpenWeatherMap API key
-const city = 'New York';
-const apiUrl        = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-const forcastAPIUrl = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&cnt=5&appid=${apiKey}`;
 
 
-async function getWeatherForecast() {
-    const city = 'New York';
-    const country = 'US';
-    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city},${country}&units=metric&cnt=5&appid=${apiKey}`;
-  
+async function getWeatherForecast(city) {
+    const count = 5;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&cnt=${count}&appid=${apiKey}`;
+
     try {
       const response = await fetch(apiUrl);
       if (!response.ok) {
@@ -23,14 +19,14 @@ async function getWeatherForecast() {
       const forcastData = await response.json();
       console.log(JSON.stringify(forcastData,null ,5));
 
-      //console.log('5-day Weather Forecast for New York City:', forecastData.list);
-    } catch (error) {
+    } 
+    catch (error) {
       console.error('Error fetching weather forecast data:', error);
     }
   }
   
   // Call the function to get the 5-day weather forecast
-  getWeatherForecast();
+  getWeatherForecast('New York');
 
 // async function getCurrentWeather() {
 
