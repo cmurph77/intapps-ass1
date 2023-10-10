@@ -48,11 +48,16 @@ function createForcastObj(raw_data){
 
 }
 
+function printHello(){
+  console.log("\nHello World!")
+}
+
+
 
 async function main(){
     const returned_data = await getWeatherForecastDaily('New York');
     console.log(JSON.stringify(returned_data, null, 4)); 
 
 }
-
-main();
+module.exports = { getWeatherForecastDaily }
+//main();

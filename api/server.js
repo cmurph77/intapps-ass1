@@ -1,12 +1,14 @@
-
+const { getWeatherForecastDaily } = require('./weather_api_call.js');
 const { json } = require('body-parser');
 const express = require('express');
 const app = express();
 const port = 3001;
 
-const sample_request = {
-  city: 'New York'
-}
+console.log("Starting Server!")
+//printHello();
+//getdata();
+
+
 
 const sample_data = {
   "city": "Dublin",
@@ -56,17 +58,34 @@ const sample_data = {
 
 
 app.get('/helloworld', (req, res) => {
-  res.send(sample_data);
+  res.send("Hello World");
   console.log(JSON.stringify(req, null,3));
   console.log("responce sent!")
 });
 
-app.get('/weather/:input', (req, res) => {
+async function getdata() {
+  try {
+    const result = await getWeatherForecastDaily('new york');
+    console.log(JSON.stringify(result, null, 4));
+    return result;
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
+    throw error;  // Rethrow the error to be caught by the caller
+  }
+}
+
+app.get('/weather/:input', async (req, res) => {
   const input = req.params.input;
-  console.log("\n Recieved weather forecast request for City: ")
+  console.log("\nReceived weather forecast request for City:");
   console.log(input);
-  sample_data.city = input
-  res.send(sample_data)
+
+  try {
+    const result = await getdata();  // Await the asynchronous function
+    console.log(JSON.stringify(result, null, 4));
+    res.json(result);  // Use res.json to send JSON response
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching weather data' });
+  }
 });
 
 app.get('/test/echo/:input', (req, res) => {
