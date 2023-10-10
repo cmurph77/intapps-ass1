@@ -22,13 +22,29 @@ async function getWeatherForecastDaily(city) {
     catch (error) {
       console.error('Error fetching weather forecast data:', error);
     }
-    return createForcastObj(forecastData);
+    const cleaned_data = createForcastObj(forecastData);
+    cleaned_data.city = city;
+    return cleaned_data;
 
+}
+
+function getCityLatLon(city){
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=${apiKey}`)
+  .then((res) => res.json())
+  .then((result) => {
+    const coords = {
+      "lat" : result.lat,
+      "lon" : result.lon
+    };
+    console.log("why is this working?")
+    setWeather(result);
+  });
 }
 
 // cleand up the forecast data
 function createForcastObj(raw_data){
   const forecast = {
+    "city": "blank",
     "lat": raw_data.lat,
     "lon": raw_data.lon,
   };
@@ -54,10 +70,10 @@ function printHello(){
 
 
 
-async function main(){
-    const returned_data = await getWeatherForecastDaily('New York');
-    console.log(JSON.stringify(returned_data, null, 4)); 
+// async function main(){
+//     const returned_data = await getWeatherForecastDaily('New York');
+//     console.log(JSON.stringify(returned_data, null, 4)); 
 
-}
+// }
 module.exports = { getWeatherForecastDaily }
 //main();

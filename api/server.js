@@ -63,9 +63,9 @@ app.get('/helloworld', (req, res) => {
   console.log("responce sent!")
 });
 
-async function getdata() {
+async function getdata(city) {
   try {
-    const result = await getWeatherForecastDaily('new york');
+    const result = await getWeatherForecastDaily(city);
     console.log(JSON.stringify(result, null, 4));
     return result;
   } catch (error) {
@@ -80,7 +80,7 @@ app.get('/weather/:input', async (req, res) => {
   console.log(input);
 
   try {
-    const result = await getdata();  // Await the asynchronous function
+    const result = await getdata(input);  // Await the asynchronous function
     console.log(JSON.stringify(result, null, 4));
     res.json(result);  // Use res.json to send JSON response
   } catch (error) {
