@@ -5,8 +5,7 @@ const app = express();
 const port = 3001;
 
 console.log("Starting Server!")
-//printHello();
-//getdata();
+
 
 
 
@@ -57,11 +56,11 @@ const sample_data = {
 }
 
 
-app.get('/helloworld', (req, res) => {
-  res.send("Hello World");
-  console.log(JSON.stringify(req, null,3));
-  console.log("responce sent!")
-});
+// app.get('/helloworld', (req, res) => {
+//   res.send("Hello World");
+//   console.log(JSON.stringify(req, null,3));
+//   console.log("responce sent!")
+// });
 
 async function getdata(city) {
   try {
@@ -87,13 +86,6 @@ app.get('/weather/:input', async (req, res) => {
     res.status(500).json({ error: 'Error fetching weather data' });
   }
 });
-
-app.get('/test/echo/:input', (req, res) => {
-  const input = req.params.input;
-  sample_data.city = input
-  res.send(sample_data)
-});
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

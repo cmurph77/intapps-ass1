@@ -4,9 +4,14 @@ const apiKey = '9d54b4134840423050e9a3f21b40dc15'; // Replace with your OpenWeat
 // this function takes a city as a parameter and makes call to api to get weather forcast for that city
 async function getWeatherForecastDaily(city) {
     const count = 2;
-    const long = 40.7128;
-    const lat = 74.0060;
-    const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=current,hourly,minutely,alerts&units=metric&appid=${apiKey}`;
+    const coords = await getCityLatLon(city)
+    console.log(JSON.stringify(coords, null, 3));
+
+    const lat = coords.lat;
+    const lon = coords.lon;
+    // lat = 53.00
+    // long = 46
+    const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,hourly,minutely,alerts&units=metric&appid=${apiKey}`;
     let forecastData;
 
     try {
@@ -28,17 +33,18 @@ async function getWeatherForecastDaily(city) {
 
 }
 
-function getCityLatLon(city){
-  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=${apiKey}`)
-  .then((res) => res.json())
-  .then((result) => {
-    const coords = {
-      "lat" : result.lat,
-      "lon" : result.lon
-    };
-    console.log("why is this working?")
-    setWeather(result);
-  });
+function getCityLatLon(city) {
+  return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=${apiKey}`)
+    .then((res) => res.json())
+    .then((result) => {
+        //console.log(JSON.stringify(result, null, 3));
+      const coords = {
+        lat: result.coord.lat,
+        lon: result.coord.lon,
+        country: result.sys.country
+      };
+      return coords;
+    });
 }
 
 // cleand up the forecast data
@@ -64,16 +70,4 @@ function createForcastObj(raw_data){
 
 }
 
-function printHello(){
-  console.log("\nHello World!")
-}
-
-
-
-// async function main(){
-//     const returned_data = await getWeatherForecastDaily('New York');
-//     console.log(JSON.stringify(returned_data, null, 4)); 
-
-// }
 module.exports = { getWeatherForecastDaily }
-//main();
