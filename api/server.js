@@ -65,7 +65,7 @@ const sample_data = {
 async function getdata(city) {
   try {
     const result = await getWeatherForecastDaily(city);
-    console.log(JSON.stringify(result, null, 4));
+    // console.log(JSON.stringify(result, null, 4));
     return result;
   } catch (error) {
     console.error('Error fetching weather data:', error);
@@ -80,7 +80,7 @@ app.get('/weather/:input', async (req, res) => {
 
   try {
     const result = await getdata(input);  // Await the asynchronous function
-    console.log(JSON.stringify(result, null, 4));
+    //console.log(JSON.stringify(result, null, 4));
     res.json(result);  // Use res.json to send JSON response
   } catch (error) {
     res.status(500).json({ error: 'Error fetching weather data' });
