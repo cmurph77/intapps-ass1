@@ -2,12 +2,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <h1> Learning Vue!</h1>
+    <title>Weather App</title>
+    <h1> Welcome to the Cian's Weather App</h1>
     <script src="https://unpkg.com/vue@3.0.2"></script>
 </head>
 <body>
-    <div id="app"> </div>
+    <h1>Hello Vue</h1>
+    <div id="app"> 
+        <!-- <p>{{ name }} </p> -->
+        <!-- <p> {{age}}</p> -->
+        <!-- <button @click="age++">Make me older</button> -->
+        <!-- <button @click="age--">Make me younger</button> -->
+        <!-- <button @click="changeTitle('poo')">Change the Title</button> -->
+        
+        <button @click="toggleShowResults">
+            <span v-if="showResults">Hide Books</span>
+            <span v-if="!showResults">Show Books</span>
+        </button>
+        <div v-show="showResults">
+            <p>Showing Results</p>
+        </div>
+        <div v-if=showResults>
+            <p>Correct</p>
+        </div>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>
