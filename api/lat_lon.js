@@ -7,8 +7,7 @@ function getCityLatLon(city) {
     .then((res) => res.json())
     .then((result) => {
         //console.log(JSON.stringify(result, null, 3));
-        cons
-      const coords = {
+        const coords = {
         lat: result.coord.lat,
         lon: result.coord.lon,
         country: result.sys.country
